@@ -31,7 +31,7 @@ class User:
 
 --------------------------"""
     
-    #Defining to methods for adding incomes and to register expenses
+    #Defining two methods for adding incomes and to register expenses
     def add_income(self, new_income):
         self.income += new_income
     
@@ -104,7 +104,7 @@ class User:
         print(financial_health)
     
     def save(self):
-        with open('/Users/alejandrohenaoecheverri/Documents/Python/FH App/financial-health-user-data.csv', 'a', newline='')  as user_data:
+        with open('./financial-health-user-data.csv', 'a', newline='')  as user_data:
             writer = csv.writer(user_data, delimiter=',')
             temp_list = None
             for i in self.expense_type_list:
@@ -122,26 +122,33 @@ streaming_platform = {1: 'netflix', 2: 'max', 3: 'amazon prime', 4: 'paramount+'
 #Defining global functions
 def main():
     while True:
-        in_or_outcome = int(input(
-        f""" 
------------- MAIN MENU ------------
-Hello, {object1.name} and welcome
-to the main menu, here you can chose
-what you want the program to do, so...
-what you want to do this time?
-        
-    1. Add a New Income 
+        welcome_string = f""" 
+        ------------ MAIN MENU ------------
+        Hello, {object1.name} and welcome
+        to the main menu, here you can chose
+        what you want the program to do, so...
+        what you want to do this time?
+                
+            1. Add a New Income 
 
-    2. Add a New Expense 
+            2. Add a New Expense 
 
-    3. Print your information
+            3. Print your information
 
-    4. Get your "Financial Health" Summary
+            4. Get your "Financial Health" Summary
 
-    5. EXIT
+            5. EXIT
 
------------------------------------
-    Please type your choice: """))
+        -----------------------------------
+            Please type your choice: """
+            
+        # Checks if the input is a digit before trying to convert to int()
+        in_or_outcome = input(welcome_string)
+        while in_or_outcome.isdigit() == False:
+            print('\nInvalid option.\nChoose between option 1 and 5.\n')
+            in_or_outcome = input(welcome_string)
+        in_or_outcome = int(in_or_outcome)
+
         system("clear")
         if in_or_outcome == 1:
             _new_income = float(input("Type the amount of the income: $"))
@@ -175,7 +182,7 @@ what you want to do this time?
 #Function to add diferent types of entertaiment expenses
 def expense_tags():
     #system('clear')
-    option_choice = int(input(""" 
+    choice_string = """ 
 ---------- TYPE OF EXPENSE ----------------
 Please, choice what type of expense it was:
                                   
@@ -189,7 +196,14 @@ Please, choice what type of expense it was:
     8. Entertaiment
                               
 -------------------------------------------
-    Type your choice: """))
+    Type your choice: """
+    # Checks if the input is a digit before trying to convert to int()
+    option_choice = input(choice_string)
+    while option_choice.isdigit() == False:
+        print('\nInvalid option.\nChoose between option 1 and 8.\n')
+        option_choice = input(choice_string)
+    option_choice = int(option_choice)
+
     if option_choice == 1:
         return ['essential', 'rent']
     elif option_choice == 2:
@@ -230,7 +244,7 @@ To start, let me know some information about you.\n""")
 
 user_id_input = input("ID number: ")
 #Reading the file to compare the user_id to see if is a new or an existent user
-with open('/Users/alejandrohenaoecheverri/Documents/Python/FH App/financial-health-user-data.csv') as user_data:
+with open('./financial-health-user-data.csv') as user_data:
             data = csv.reader(user_data, delimiter=',')
             file_to_list = list(data)
             temp_list = []
